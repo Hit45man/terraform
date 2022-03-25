@@ -22,3 +22,9 @@ variable "ami" {
 variable "instance_type" {
   default = "t3.medium"
 }
+
+variable "azs" {
+  type = list 
+  default = ["ap-south-1a","ap-south-1b"]
+}
+    
