@@ -15,6 +15,7 @@ resource "aws_vpc" "my_vpc" {
 
 resource "aws_subnet" "public_subnet" {
   vpc_id     = aws_vpc.my_vpc.id
+  availability_zone = var.azs[1]
   cidr_block = var.pub_ip
   tags = {
     Name = "Public Subnet"
@@ -25,6 +26,7 @@ resource "aws_subnet" "public_subnet" {
 
 resource "aws_subnet" "private_subnet" {
   vpc_id     = aws_vpc.my_vpc.id
+  availability_zone = var.azs[0]
   cidr_block = var.prv_ip
   tags = {
     Name = "Private Subnet"
@@ -113,7 +115,7 @@ resource "aws_instance" "myec2" {
   associate_public_ip_address = "true"
   security_groups = ["${aws_security_group.my_sg.id}"]
   key_name        = "vpc-key"
-  availability_zone = "ap-south-1b"
+  availability_zone = var.azs[1]
 
   tags = {
 
